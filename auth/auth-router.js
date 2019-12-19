@@ -4,6 +4,7 @@ const Users = require("../users/users-model");
 // const jwt = require("jsonwebtoken");
 const signToken = require("../helpers/signToken");
 const validateRegistration = require("../middleware/validateRegistration");
+const validateLogin = require("../middleware/validateLogin");
 
 router.post("/register", validateRegistration, (req, res) => {
   let user = req.body;
@@ -19,7 +20,7 @@ router.post("/register", validateRegistration, (req, res) => {
     });
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", validateLogin, (req, res) => {
   let { username, password } = req.body;
   Users.findBy({ username })
     .first()
