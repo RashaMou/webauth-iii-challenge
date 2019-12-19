@@ -1,10 +1,11 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const Users = require("../users/users-model");
-const jwt = require("jsonwebtoken");
+// const jwt = require("jsonwebtoken");
 const signToken = require("../helpers/signToken");
+const validateRegistration = require("../middleware/validateRegistration");
 
-router.post("/register", (req, res) => {
+router.post("/register", validateRegistration, (req, res) => {
   let user = req.body;
   const hash = bcrypt.hashSync(user.password, 10);
   user.password = hash;
