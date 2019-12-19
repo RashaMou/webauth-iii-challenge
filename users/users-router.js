@@ -1,8 +1,9 @@
 const router = require("express").Router();
 
 const Users = require("./users-model.js");
+const restricted = require("../middleware/restricted-middleware");
 
-router.get("/", async (req, res) => {
+router.get("/", restricted, async (req, res) => {
   const allUsers = await Users.find();
   try {
     if (allUsers) {
